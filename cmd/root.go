@@ -4,10 +4,10 @@ Copyright © 2026 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/yama-is-bocchi/filetree-go/filetree"
 )
 
 var (
@@ -25,9 +25,9 @@ var rootCmd = &cobra.Command{
 		if len(args) > 0 {
 			path = args[0]
 		}
-		fmt.Println("targetPath:", path)
-		fmt.Println("depth:", depth)
-		return nil
+		tree := filetree.New(path, depth)
+		_, err := tree.WriteTo(os.Stdout)
+		return err
 	},
 }
 

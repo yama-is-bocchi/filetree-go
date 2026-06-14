@@ -13,6 +13,25 @@ type treeNode struct {
 	children []treeNode
 }
 
+func (node treeNode) String() string {
+	return node.stringFromDepth(0)
+}
+func (node treeNode) stringFromDepth(depth int) string {
+	beforeLine := ""
+	for range depth {
+		beforeLine += "│   "
+	}
+	current := node.name
+	for i, child := range node.children {
+		if len(node.children)-1 == i {
+			current += "\n" + beforeLine + "└── " + child.stringFromDepth(depth+1)
+			continue
+		}
+		current += "\n" + beforeLine + "├── " + child.stringFromDepth(depth+1)
+	}
+	return current
+}
+
 func parseTreeNode(targetPath string, depth int) (treeNode, error) {
 	children, err := walkDirAndParseTreeNode(targetPath, depth)
 	rootTreeNode := treeNode{name: ".", isDir: true, children: children}
