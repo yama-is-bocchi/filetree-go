@@ -19,7 +19,7 @@ func New(targetPath string, depth int) fileTree {
 
 func (tree fileTree) WriteTo(writer io.Writer) (int64, error) {
 	// ターゲットのパスを巡回しパース
-	treeData, err := parseTreeData(tree.targetPath, tree.depth)
+	_, err := parseTreeNode(tree.targetPath, tree.depth)
 	if err != nil {
 		return 0, fmt.Errorf("failed to parse tree data: %w", err)
 	}

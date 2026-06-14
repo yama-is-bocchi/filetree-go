@@ -13,13 +13,13 @@ type treeNode struct {
 	children []treeNode
 }
 
-func parseTreeData(targetPath string, depth int) (treeNode, error) {
-	children, err := walkDirAndParseTreeData(targetPath, depth)
-	rootTreeData := treeNode{name: ".", isDir: true, children: children}
-	return rootTreeData, err
+func parseTreeNode(targetPath string, depth int) (treeNode, error) {
+	children, err := walkDirAndParseTreeNode(targetPath, depth)
+	rootTreeNode := treeNode{name: ".", isDir: true, children: children}
+	return rootTreeNode, err
 }
 
-func walkDirAndParseTreeData(path string, depth int) ([]treeNode, error) {
+func walkDirAndParseTreeNode(path string, depth int) ([]treeNode, error) {
 	if depth < 0 {
 		return []treeNode{}, errors.New("invalid depth. please set it to a value greater than 0")
 	}
@@ -32,9 +32,9 @@ func walkDirAndParseTreeData(path string, depth int) ([]treeNode, error) {
 		node := treeNode{name: entry.Name(), isDir: entry.IsDir()}
 
 		if entry.IsDir() && depth > 0 {
-			children, err := walkDirAndParseTreeData(filepath.Join(path, entry.Name()), depth-1)
+			children, err := walkDirAndParseTreeNode(filepath.Join(path, entry.Name()), depth-1)
 			if err != nil {
-				return nil, fmt.Errorf("failed to walk dir and parse tree data: %w", err)
+				return nil, fmt.Errorf("failed to walk dir and parse tree node: %w", err)
 			}
 			node.children = append(node.children, children...)
 		}
