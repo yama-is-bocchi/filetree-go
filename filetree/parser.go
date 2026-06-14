@@ -7,29 +7,29 @@ import (
 	"path/filepath"
 )
 
-type treeData struct {
+type treeNode struct {
 	name     string
 	isDir    bool
-	children []treeData
+	children []treeNode
 }
 
-func parseTreeData(targetPath string, depth int) (treeData, error) {
+func parseTreeData(targetPath string, depth int) (treeNode, error) {
 	children, err := walkDirAndParseTreeData(targetPath, depth)
-	rootTreeData := treeData{name: ".", isDir: true, children: children}
+	rootTreeData := treeNode{name: ".", isDir: true, children: children}
 	return rootTreeData, err
 }
 
-func walkDirAndParseTreeData(path string, depth int) ([]treeData, error) {
+func walkDirAndParseTreeData(path string, depth int) ([]treeNode, error) {
 	if depth < 0 {
-		return []treeData{}, errors.New("invalid depth. please set it to a value greater than 0")
+		return []treeNode{}, errors.New("invalid depth. please set it to a value greater than 0")
 	}
 	entries, err := os.ReadDir(path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read dir: %w", err)
 	}
-	var result []treeData
+	var result []treeNode
 	for _, entry := range entries {
-		node := treeData{name: entry.Name(), isDir: entry.IsDir()}
+		node := treeNode{name: entry.Name(), isDir: entry.IsDir()}
 
 		if entry.IsDir() && depth > 0 {
 			children, err := walkDirAndParseTreeData(filepath.Join(path, entry.Name()), depth-1)

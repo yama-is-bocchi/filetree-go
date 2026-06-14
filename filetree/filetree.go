@@ -1,6 +1,9 @@
 package filetree
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type fileTree struct {
 	targetPath string
@@ -16,6 +19,10 @@ func New(targetPath string, depth int) fileTree {
 
 func (tree fileTree) WriteTo(writer io.Writer) (int64, error) {
 	// ターゲットのパスを巡回しパース
+	treeData, err := parseTreeData(tree.targetPath, tree.depth)
+	if err != nil {
+		return 0, fmt.Errorf("failed to parse tree data: %w", err)
+	}
 	// データ構造を再帰的に書き込み
 	// byte変換 & 書き込み
 	return 0, nil
