@@ -6,6 +6,7 @@
     "workspaceFolder": "/workspace",
     "remoteUser": "vscode",
     "updateRemoteUserUID": true,
+    "postCreateCommand": "go mod tidy",
     "postStartCommand": "lefthook install",
     "customizations": {
         "vscode": {

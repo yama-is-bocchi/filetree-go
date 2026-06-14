@@ -37,6 +37,7 @@ RUN mkdir -p /home/${USERNAME}/.bash \
     && echo 'shopt -s histappend' >> /home/${USERNAME}/.bashrc \
     && echo 'PROMPT_COMMAND="history -a;history -n;$PROMPT_COMMAND"' >> /home/${USERNAME}/.bashrc
 
-# install cobra-cli
+# install cobra-cli & goreleaser
 RUN go install github.com/spf13/cobra-cli@latest \
+    && go install github.com/goreleaser/goreleaser/v2@latest \
     && echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> /home/${USERNAME}/.bashrc

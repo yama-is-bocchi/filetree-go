@@ -1,0 +1,7 @@
+version: 2
+
+project_name: filetree-go
+
+builds:
+  - binary: filetree-go
+    main: .
