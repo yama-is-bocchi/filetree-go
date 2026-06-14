@@ -1,0 +1,11 @@
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks-local:
+      run: "gitleaks detect -v --no-git --redact --exit-code 1"
+
+pre-push:
+  parallel: true
+  commands:
+    gitleaks-history:
+      run: "gitleaks detect --redact --exit-code 1"

@@ -1,0 +1,19 @@
+{
+    "name": "${localWorkspaceFolderBasename}",
+    "dockerComposeFile": "compose.yaml",
+    "service": "dev",
+    "containerUser": "vscode",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "vscode",
+    "updateRemoteUserUID": true,
+    "postStartCommand": "lefthook install",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "tamasfe.even-better-toml",
+                "streetsidesoftware.code-spell-checker",
+                "golang.go"
+            ]
+        }
+    }
+}

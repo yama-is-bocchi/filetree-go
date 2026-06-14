@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "**/.devcontainer/.bash": true,
+    },
+    "files.watcherExclude": {
+        "**/.devcontainer/.bash": true,
+    },
+    "search.exclude": {
+        "**/.devcontainer/.bash": true,
+    },
+    "[go]": {
+        "editor.defaultFormatter": "golang.go"
+    }
+}
