@@ -94,6 +94,11 @@ func TestString(t *testing.T) {
 			expect: ".\n└── first\n    └── second\n",
 			node:   treeNode{name: ".", isDir: false, children: []treeNode{{name: "first", isDir: true, children: []treeNode{{name: "second"}}}}},
 		},
+		{
+			name:   "dirのネストされたchildrenと単一ファイルを表示する",
+			expect: ".\n├── first\n│   └── second\n└── third\n",
+			node:   treeNode{name: ".", isDir: false, children: []treeNode{{name: "first", isDir: true, children: []treeNode{{name: "second"}}}, {name: "third"}}},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

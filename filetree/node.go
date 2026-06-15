@@ -7,20 +7,17 @@ type treeNode struct {
 }
 
 func (node treeNode) String() string {
-	return node.stringFromDepth(0) + "\n"
+	return node.stringFromDepth("") + "\n"
 }
-func (node treeNode) stringFromDepth(depth int) string {
-	beforeLine := ""
-	for range depth {
-		beforeLine += "│   "
-	}
+func (node treeNode) stringFromDepth(frontString string) string {
 	current := node.name
 	for i, child := range node.children {
+		// 最後尾
 		if len(node.children)-1 == i {
-			current += "\n" + beforeLine + "└── " + child.stringFromDepth(depth+1)
+			current += "\n" + frontString + "└── " + child.stringFromDepth(frontString+"    ")
 			continue
 		}
-		current += "\n" + beforeLine + "├── " + child.stringFromDepth(depth+1)
+		current += "\n" + frontString + "├── " + child.stringFromDepth(frontString+"│   ")
 	}
 	return current
 }
