@@ -23,6 +23,6 @@ func (tree fileTree) WriteTo(writer io.Writer) (int64, error) {
 	if err != nil {
 		return 0, fmt.Errorf("failed to parse tree data: %w", err)
 	}
-	n, err := writer.Write([]byte(node.String() + "\n"))
+	n, err := writer.Write([]byte(node.String()))
 	return int64(n), err
 }

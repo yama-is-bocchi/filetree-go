@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestWalkDirAndParseTreeData(t *testing.T) {
+func TestWalkDirAndParseTreeNode(t *testing.T) {
 	tests := []struct {
 		name         string
 		setupTestDir func() string
@@ -63,6 +63,42 @@ func TestWalkDirAndParseTreeData(t *testing.T) {
 
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("err=%v wantErr=%v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestString(t *testing.T) {
+	tests := []struct {
+		name   string
+		expect string
+		node   treeNode
+	}{
+		{
+			name:   "1ノードのみで表示する",
+			expect: ".\n",
+			node:   treeNode{name: ".", isDir: false, children: []treeNode{}},
+		},
+		{
+			name:   "単一のchildrenを表示する",
+			expect: ".\n└── child\n",
+			node:   treeNode{name: ".", isDir: false, children: []treeNode{{name: "child"}}},
+		},
+		{
+			name:   "2以上のchildrenを表示する",
+			expect: ".\n├── first\n└── second\n",
+			node:   treeNode{name: ".", isDir: false, children: []treeNode{{name: "first"}, {name: "second"}}},
+		},
+		{
+			name:   "dirのネストされたchildrenを表示する",
+			expect: ".\n└── first\n    └── second\n",
+			node:   treeNode{name: ".", isDir: false, children: []treeNode{{name: "first", isDir: true, children: []treeNode{{name: "second"}}}}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.expect != tt.node.String() {
+				t.Fatalf("the result is different from the expected String: %s\nexpect:\n %s\nresult:\n %s", tt.name, tt.expect, tt.node)
 			}
 		})
 	}

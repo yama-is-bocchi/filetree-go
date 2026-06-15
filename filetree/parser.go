@@ -14,7 +14,7 @@ type treeNode struct {
 }
 
 func (node treeNode) String() string {
-	return node.stringFromDepth(0)
+	return node.stringFromDepth(0) + "\n"
 }
 func (node treeNode) stringFromDepth(depth int) string {
 	beforeLine := ""
